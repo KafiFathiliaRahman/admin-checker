@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard') | Admin Checker</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 <body class="dashboard-body">
     <input type="checkbox" id="sidebar-toggle" class="sidebar-toggle" aria-label="Buka navigasi">
@@ -27,23 +28,16 @@
             <a href="{{ route('dashboard.live_monitoring.index') }}" class="nav-link {{ request()->routeIs('dashboard.live_monitoring.*') ? 'is-active' : '' }}">
                 <span class="nav-dot"></span>Live monitoring
             </a>
-            <a href="{{ route('dashboard.employee.index') }}" class="nav-link {{ request()->routeIs('dashboard.employee.*') ? 'is-active' : '' }}">
-                <span class="nav-dot"></span>Employees
-            </a>
-            <a href="{{ route('dashboard.camera.index') }}" class="nav-link {{ request()->routeIs('dashboard.camera.*') ? 'is-active' : '' }}">
-                <span class="nav-dot"></span>Camera feed
-            </a>
-            <a href="{{ route('dashboard.detection.index') }}" class="nav-link {{ request()->routeIs('dashboard.detection.*') ? 'is-active' : '' }}">
-                <span class="nav-dot"></span>Detection history
-            </a>
-
-            <p class="nav-label nav-label-settings">System</p>
-            <a href="{{ route('dashboard.setting.index') }}" class="nav-link {{ request()->routeIs('dashboard.setting.*') ? 'is-active' : '' }}">
-                <span class="nav-dot"></span>Settings
+            <a href="{{ route('dashboard.devices.index') }}" class="nav-link {{ request()->routeIs('dashboard.devices.*') ? 'is-active' : '' }}">
+                <span class="nav-dot"></span>Daftar Device
             </a>
         </nav>
 
         <div class="sidebar-footer">
+            <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-button">Keluar</button>
+            </form>
             <div class="status-indicator"><span></span>All systems operational</div>
             <div class="profile-mini">
                 <span class="avatar">AD</span>
@@ -66,5 +60,7 @@
             @yield('content')
         </section>
     </main>
+
+    @stack('scripts')
 </body>
 </html>

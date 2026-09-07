@@ -11,14 +11,17 @@
 }
 
 :root {
-    --navy: #0b2a52;
-    --blue: #1667d9;
-    --blue-soft: #eaf3ff;
-    --ink: #132238;
-    --muted: #6b7b91;
-    --line: #e2eaf3;
-    --canvas: #f4f7fb;
+    --navy: #111827;
+    --blue: #d4a017;
+    --blue-soft: #fef9e7;
+    --yellow-soft: #fef9e7;
+    --ink: #111827;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --canvas: #ffffff;
     --white: #ffffff;
+    --yellow: #d4a017;
+    --yellow-dark: #b0870a;
 }
 
 * {
@@ -40,10 +43,27 @@ body {
     display: flex;
     width: 256px;
     flex-direction: column;
-    background: var(--navy);
-    color: #d8e6f8;
+    background: linear-gradient(180deg, #ffffff 0%, #fef9e7 100%);
+    color: #1f2937;
     padding: 28px 16px 18px;
 }
+.sidebar .brand span strong,
+.sidebar .profile-mini strong { color: var(--ink); }
+.sidebar .brand span small,
+.sidebar .profile-mini small { color: var(--muted); }
+.sidebar .brand-mark { background: var(--yellow); color: var(--navy); }
+.sidebar .nav-link { color: #374151; }
+.sidebar .nav-link:hover,
+.sidebar .nav-link.is-active {
+    background: var(--yellow-soft);
+    color: var(--yellow-dark);
+}
+.sidebar .nav-link.is-active .nav-dot { background: var(--yellow-dark); }
+.sidebar-footer {
+    border-top: 1px solid var(--line);
+    padding: 17px 10px 0;
+}
+.sidebar .status-indicator { color: var(--muted); }
 .brand {
     display: flex;
     align-items: center;
@@ -105,11 +125,11 @@ body {
 }
 .nav-link:hover,
 .nav-link.is-active {
-    background: #194579;
-    color: var(--white);
+    background: rgba(212, 160, 23, .18);
+    color: var(--yellow);
 }
 .nav-link.is-active {
-    box-shadow: inset 3px 0 #56a5ff;
+    box-shadow: inset 3px 0 var(--yellow);
 }
 .nav-dot {
     width: 7px;
@@ -120,17 +140,17 @@ body {
 }
 .nav-link.is-active .nav-dot {
     border: 0;
-    background: #56a5ff;
+    background: var(--yellow);
 }
 .sidebar-footer {
-    border-top: 1px solid #21456f;
+    border-top: 1px solid #374151;
     padding: 17px 10px 0;
 }
 .status-indicator {
     display: flex;
     align-items: center;
     gap: 7px;
-    color: #96b5d6;
+    color: #9ca3af;
     font-size: 11px;
 }
 .status-indicator span,
@@ -138,8 +158,8 @@ body {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #37c98b;
-    box-shadow: 0 0 0 4px #37c98b22;
+    background: var(--yellow);
+    box-shadow: 0 0 0 4px #d4a01722;
 }
 .profile-mini {
     display: flex;
@@ -153,8 +173,8 @@ body {
     height: 30px;
     place-items: center;
     border-radius: 50%;
-    background: #d8eaff;
-    color: var(--blue);
+    background: var(--yellow-soft);
+    color: var(--yellow);
     font-size: 10px;
     font-weight: 800;
 }
@@ -179,7 +199,7 @@ body {
     color: var(--muted);
 }
 .breadcrumb b {
-    color: #b7c4d3;
+    color: #9ca3af;
     font-weight: 400;
 }
 .breadcrumb strong {
@@ -195,7 +215,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #23855d;
+    color: var(--yellow);
     font-size: 11px;
     font-weight: 700;
 }
@@ -253,11 +273,11 @@ body {
     text-decoration: none;
 }
 .primary-button:hover {
-    background: #0d56bb;
+    background: var(--yellow-dark);
 }
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 17px;
     margin-bottom: 26px;
 }
@@ -287,7 +307,7 @@ body {
 }
 .stat-note {
     margin-left: 6px;
-    color: #31a574;
+    color: var(--yellow);
     font-size: 11px;
     font-weight: 700;
 }
@@ -331,8 +351,8 @@ body {
     min-width: 760px;
 }
 .scan-table th {
-    background: #f8fbff;
-    color: #8190a3;
+    background: var(--yellow-soft);
+    color: var(--muted);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -348,7 +368,7 @@ body {
     white-space: nowrap;
 }
 .scan-table td:first-child {
-    color: #9aabc0;
+    color: var(--muted);
 }
 .scan-table td strong {
     color: var(--ink);
@@ -357,12 +377,67 @@ body {
 .ram-badge {
     display: inline-block;
     border-radius: 5px;
-    background: var(--blue-soft);
-    color: var(--blue);
+    background: var(--yellow-soft);
+    color: var(--yellow-dark);
     font-size: 11px;
     font-weight: 700;
     padding: 5px 8px;
 }
+.dept-badge {
+    display: inline-block;
+    border-radius: 999px;
+    background: var(--yellow-soft);
+    color: var(--yellow-dark);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 10px;
+}
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+.filter-bar input,
+.filter-select {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 13px;
+    padding: 8px 12px;
+    height: 38px;
+}
+.filter-bar input { min-width: 240px; }
+.filter-bar select { min-width: 200px; cursor: pointer; }
+.filter-button {
+    border: 0;
+    border-radius: 8px;
+    background: var(--yellow);
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 0 16px;
+    height: 38px;
+    cursor: pointer;
+}
+.filter-button:hover { background: var(--yellow-dark); color: var(--white); }
+.reset-link {
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: none;
+}
+.reset-link:hover { color: var(--ink); text-decoration: underline; }
+.live-toolbar { display: flex; align-items: center; gap: 14px; }
+.action-link {
+    color: var(--yellow-dark);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+.action-link.delete { color: #b91c1c; }
+.action-link:hover { text-decoration: underline; }
 .empty-state {
     padding: 34px !important;
     text-align: center;
@@ -389,6 +464,26 @@ body {
 .pagination .active span {
     background: var(--blue);
     color: var(--white);
+}
+
+.logout-form {
+    margin-top: 16px;
+}
+.logout-button {
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    background: var(--white);
+    color: #b91c1c;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.logout-button:hover {
+    background: var(--yellow-soft);
+    color: var(--yellow-dark);
 }
 
 @media (max-width: 800px) {
