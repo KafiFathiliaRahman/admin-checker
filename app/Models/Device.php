@@ -6,13 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    protected $table = 'devices';
-
     protected $fillable = [
+        'user_name',
+        'device_id',
         'device_name',
-        'device_os',
-        'device_cpu',
-        'device_gpu',
-        'device_ram',
+        'manufacturer',
+        'model',
+        'cpu',
+        'ram',
+        'gpu',
+        'storage',
+        'windows_version',
+        'last_seen',
+    ];
+
+    protected $casts = [
+        'last_seen' => 'datetime',
     ];
 }
