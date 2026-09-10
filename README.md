@@ -1,58 +1,254 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Admin Checker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Admin Checker adalah aplikasi Laravel untuk memantau dan mengelola perangkat komputer yang terdaftar pada lingkungan kerja. Aplikasi menyediakan dashboard web untuk admin dan API untuk mengirim, melihat, serta menghapus data perangkat.
 
-## About Laravel
+## Teknologi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.3 atau lebih baru
+- Laravel 13
+- Laravel Sanctum
+- SQLite sebagai database default
+- Node.js dan npm
+- Vite dan Tailwind CSS
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prasyarat
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Pastikan perangkat sudah memiliki:
 
-## Learning Laravel
+- PHP 8.3+
+- Composer
+- Node.js dan npm
+- Git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Verifikasi instalasi:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```powershell
+php -v
+composer -V
+node -v
+npm -v
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Instalasi Setelah Clone
 
-## Contributing
+1. Clone repository dan masuk ke folder proyek:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```powershell
+    git clone <URL-REPOSITORY>
+    cd admin-checker
+    ```
 
-## Code of Conduct
+2. Install dependency PHP:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```powershell
+    composer install
+    ```
 
-## Security Vulnerabilities
+3. Buat file environment:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```powershell
+    Copy-Item .env.example .env
+    ```
 
-## License
+    Pada Git Bash, gunakan `cp .env.example .env`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Generate application key:
+
+    ```powershell
+    php artisan key:generate
+    ```
+
+5. Siapkan database SQLite. Jika file belum ada, buat file kosong:
+
+    ```powershell
+    New-Item database/database.sqlite -ItemType File -Force
+    ```
+
+    Pastikan `.env` menggunakan konfigurasi berikut:
+
+    ```dotenv
+    DB_CONNECTION=sqlite
+    ```
+
+6. Jalankan migration:
+
+    ```powershell
+    php artisan migrate
+    ```
+
+7. (Opsional) Buat akun demo:
+
+    ```powershell
+    php artisan db:seed
+    ```
+
+    Akun demo:
+    - Email: `test@example.com`
+    - Password: `password`
+
+8. Install dependency frontend dan buat asset production:
+
+    ```powershell
+    npm install
+    npm run build
+    ```
+
+## Menjalankan Aplikasi
+
+Untuk development, jalankan dua proses berikut pada terminal terpisah.
+
+Terminal 1:
+
+```powershell
+php artisan serve
+```
+
+Terminal 2:
+
+```powershell
+npm run dev
+```
+
+Buka aplikasi pada [http://localhost:8000](http://localhost:8000), lalu login menggunakan akun admin yang tersedia.
+
+Alternatifnya, proses Laravel dan Vite dapat dijalankan melalui:
+
+```powershell
+composer run dev
+```
+
+## Fitur
+
+### Dashboard Admin
+
+- Login dan logout admin berbasis session.
+- Ringkasan jumlah perangkat terdaftar.
+- Jumlah perangkat yang aktif dalam lima menit terakhir.
+- Waktu scan terbaru.
+- Ringkasan perangkat berdasarkan departemen.
+- Pencarian berdasarkan nama perangkat, nama pengguna, CPU, RAM, atau device ID.
+- Filter perangkat berdasarkan departemen.
+
+### Monitoring Perangkat
+
+- Daftar perangkat dengan pagination.
+- Halaman daftar perangkat khusus.
+- Halaman live monitoring.
+- Detail informasi perangkat seperti pengguna, departemen, nama perangkat, produsen, model, CPU, RAM, GPU, storage, versi Windows, dan waktu terakhir terlihat.
+- Penghapusan data perangkat melalui API.
+
+### API Perangkat
+
+- Menerima pendaftaran atau pembaruan perangkat.
+- Mencegah duplikasi berdasarkan `device_id` melalui operasi update-or-create.
+- Menampilkan daftar perangkat dengan pagination.
+- Menampilkan detail satu perangkat.
+- Menghapus perangkat.
+
+Menu Employees, Camera Feed, Detection History, dan Settings sudah tersedia sebagai halaman placeholder untuk pengembangan berikutnya.
+
+## Endpoint API
+
+Base URL:
+
+```text
+http://localhost:8000/api
+```
+
+| Method | Endpoint                | Fungsi                                  |
+| ------ | ----------------------- | --------------------------------------- |
+| GET    | `/api/devices`          | Menampilkan daftar perangkat            |
+| POST   | `/api/devices`          | Mendaftarkan atau memperbarui perangkat |
+| GET    | `/api/devices/{device}` | Menampilkan detail perangkat            |
+| DELETE | `/api/devices/{device}` | Menghapus perangkat                     |
+
+### Contoh Request POST
+
+```powershell
+Invoke-RestMethod `
+  -Uri http://localhost:8000/api/devices `
+  -Method Post `
+  -ContentType 'application/json' `
+  -Body (@{
+    user_name = 'Budi'
+    department = 'Bidang Pemerintahan Desa'
+    device_id = '550e8400-e29b-41d4-a716-446655440000'
+    device_name = 'PC Admin'
+    manufacturer = 'Dell'
+    model = 'OptiPlex 7090'
+    cpu = 'Intel Core i7'
+    ram = '16 GB'
+    gpu = 'Intel UHD Graphics'
+    storage = '512 GB SSD'
+    windows_version = 'Windows 11 Pro'
+  } | ConvertTo-Json)
+```
+
+Field wajib:
+
+- `user_name`
+- `department`
+- `device_id` dengan format UUID
+
+Nilai `department` yang tersedia:
+
+- `Bidang Pemerintahan Desa`
+- `Bidang Pembangunan Ekonomi dan Pendapatan Desa`
+- `Bidang Sarana Prasarana dan Kewilayahan`
+- `Bidang Pemberdayaan Masyarakat Desa`
+
+Parameter `per_page` dapat digunakan pada endpoint daftar perangkat, contohnya `/api/devices?per_page=25`.
+
+## Perintah Berguna
+
+```powershell
+# Melihat status migration
+php artisan migrate:status
+
+# Melihat seluruh route
+php artisan route:list
+
+# Melihat route API perangkat
+php artisan route:list --path=api/devices
+
+# Menjalankan test
+php artisan test
+
+# Memformat kode PHP
+vendor/bin/pint
+
+# Menghapus cache konfigurasi dan route
+php artisan optimize:clear
+```
+
+## Struktur Direktori Penting
+
+```text
+app/Http/Controllers/       Controller web dan API
+app/Models/                 Model User dan Device
+database/migrations/        Struktur tabel database
+database/seeders/           Data awal aplikasi
+resources/views/            Tampilan Blade dashboard dan login
+resources/css/              Style aplikasi
+resources/js/               JavaScript aplikasi
+routes/web.php              Route halaman web
+routes/api.php              Route API perangkat
+```
+
+## Catatan Pengembangan
+
+- Jangan commit file `.env` karena berisi konfigurasi lokal.
+- Jalankan `npm run dev` saat mengembangkan frontend agar perubahan asset ter-update otomatis.
+- Jalankan `npm run build` sebelum deployment.
+- API perangkat saat ini tidak memakai middleware autentikasi. Tambahkan autentikasi atau token sebelum digunakan di lingkungan production.
+- Setelah mengubah struktur database, buat migration baru dan jalankan `php artisan migrate`.
+
+## Pengujian
+
+Jalankan test dengan:
+
+```powershell
+php artisan test
+```
+
+Pastikan migration dan konfigurasi `.env` sudah siap sebelum menjalankan test.
